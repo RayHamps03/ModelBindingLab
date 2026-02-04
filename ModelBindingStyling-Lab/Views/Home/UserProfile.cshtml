@@ -4,56 +4,82 @@
     ViewData["Title"] = "J. Doe profile page";
 }
 
-<h1>Profile Page</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Profile Page</h1>
 
-<div>
-    <h4>UserProfile</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfileId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Model.UserProfileId
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Model.FullName
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Model.Email
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Model.PhoneNumber
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Model.ImageUrl" class="rounded-circle" alt="" />
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GitHubUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            <a href="@Model.GitHubUrl" target="_blank">@Model.GitHubUrl</a>
-        </dd>
-        <dt>Skilled Languages</dt>
-        <dd>
-            <ul>
-                @foreach(string languageSkill in Model.SkilledLanguages)
-                {
-                    <li>@languageSkill</li>
-                }
-            </ul>
-        </dd>
-    </dl>
+    <div class="row gx-4 gy-4">
+        <!-- Profile card: ID, Name, Email, Phone, Image -->
+        <div class="col-12 col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">User Profile</h5>
+                </div>
+                <div class="card-body d-flex align-items-center">
+                    <div class="me-4 text-center" style="min-width:140px;">
+                        <img src="@Model.ImageUrl" alt="@Model.FullName" class="img-fluid rounded-circle border" style="width:120px; height:120px; object-fit:cover;" />
+                    </div>
+                    <div class="flex-fill">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <strong>@Html.DisplayNameFor(m => m.UserProfileId)</strong>
+                                <span>@Model.UserProfileId</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <strong>@Html.DisplayNameFor(m => m.FullName)</strong>
+                                <span>@Model.FullName</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <strong>@Html.DisplayNameFor(m => m.Email)</strong>
+                                <span>@Model.Email</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <strong>@Html.DisplayNameFor(m => m.PhoneNumber)</strong>
+                                <span>@Model.PhoneNumber</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right column: GitHub and Skilled Languages each in own card -->
+        <div class="col-12 col-md-6 d-flex flex-column gap-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">GitHub</h6>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrWhiteSpace(Model.GitHubUrl))
+                    {
+                        <a href="@Model.GitHubUrl" target="_blank" rel="noopener" class="d-block text-truncate" style="max-width:100%;">@Model.GitHubUrl</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Not provided</span>
+                    }
+                </div>
+            </div>
+
+            <div class="card shadow-sm flex-fill">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">Skilled Languages</h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.SkilledLanguages != null && Model.SkilledLanguages.Any())
+                    {
+                        <ul class="list-unstyled mb-0">
+                            @foreach (string languageSkill in Model.SkilledLanguages)
+                            {
+                                <li class="badge bg-secondary text-white me-1 mb-1">@languageSkill</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No languages listed</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
