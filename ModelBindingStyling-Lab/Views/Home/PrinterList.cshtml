@@ -4,48 +4,25 @@
     ViewData["Title"] = "Printer List";
 }
 
-<h1>PrinterList</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Printer List</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SKU)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BuildVolume)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrinterImage)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SKU)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BuildVolume)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrinterImage)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="list-group">
+        @foreach (var item in Model)
+        {
+            <div class="list-group-item list-group-item-action py-3">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-8">
+                        <div class="mb-2"><strong>@Html.DisplayNameFor(model => model.SKU):</strong> @item.SKU</div>
+                        <div class="mb-2"><strong>@Html.DisplayNameFor(model => model.Title):</strong> @item.Title</div>
+                        <div class="mb-2"><strong>@Html.DisplayNameFor(model => model.Price):</strong> @String.Format("{0:C}", item.Price)</div>
+                        <div class="mb-0"><strong>@Html.DisplayNameFor(model => model.BuildVolume):</strong> @item.BuildVolume</div>
+                    </div>
+                    <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
+                        <img src="@item.PrinterImage" alt="@item.Title" class="img-fluid rounded" style="max-height:160px; width:auto; max-width:100%;" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
